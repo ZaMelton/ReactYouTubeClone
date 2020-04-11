@@ -10,12 +10,21 @@ class SearchBar extends Component{
         }
     }
 
+    handleChange = (event) => this.setState({ searchTerm: event.target.value});
+
+    handleSubmit = (event) => {
+        const {searchTerm} = this.state;
+        const {onFormSubmit} = this.props;
+        onFormSubmit(searchTerm);
+        event.preventDefault();
+    }
+
     render(){
         return(
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <TextField 
+                    onChange={this.handleChange}
                     placeholder="Search..." 
-                    value=''
                     variant="outlined"
                     InputProps={{
                         startAdornment: (
@@ -25,7 +34,7 @@ class SearchBar extends Component{
                         ),
                     }}
                     style={{
-                        width: '50vw',
+                        width:'50vw',
                     }}
                 />
             </form>
