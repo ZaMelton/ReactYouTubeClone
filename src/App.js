@@ -5,6 +5,13 @@ import './App.css';
 import {SearchBar, VideoList, VideoPlayer} from './Components';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            videos: [],
+            selectedVideo: null,
+        }
+    }
 
     handleSubmit = async (searchTerm) => {
         const api_key = process.env.REACT_APP_YOUTUBE_KEY;
@@ -16,10 +23,14 @@ class App extends Component {
                 q: searchTerm,
             }
          });
-        console.log(response);
+        this.setState({
+            videos: response.data.items,
+            selectedVideo: response.data.items[0],
+        });
     }
 
     render (){
+        const { videos, selectedVideo} = this.state;
         return(
             <div>
                 <AppBar position='fixed' style={{backgroundColor: 'white'}}>
@@ -30,14 +41,14 @@ class App extends Component {
                         <SearchBar onFormSubmit={this.handleSubmit}/>
                     </Toolbar>
                 </AppBar>
-                <Grid justify="center" container spacing={10} style={{marginTop: '100px'}}>
+                <Grid justify="center" container spacing={10} style={{marginTop: '50px'}}>
                     <Grid item xs={12}>
                         <Grid container spacing={10}>
                             <Grid item xs={8}>
-                                <VideoPlayer/>
+                                <VideoPlayer video={selectedVideo}/>
                             </Grid>
                             <Grid item xs={4}>
-                                <VideoList/>
+                                <VideoList allVideos={videos}/>
                             </Grid>
                         </Grid>
                     </Grid>
