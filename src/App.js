@@ -18,7 +18,7 @@ class App extends Component {
         const response = await YouTube.get('search', {
             params: { 
                 part: 'snippet',
-                maxResults: 5,
+                maxResults: 8,
                 key: api_key,
                 q: searchTerm,
             }
@@ -27,6 +27,10 @@ class App extends Component {
             videos: response.data.items,
             selectedVideo: response.data.items[0],
         });
+    }
+
+    handleVideoSelect = (video) => {
+        this.setState({ selectedVideo: video});
     }
 
     render (){
@@ -48,7 +52,7 @@ class App extends Component {
                                 <VideoPlayer video={selectedVideo}/>
                             </Grid>
                             <Grid item xs={4}>
-                                <VideoList allVideos={videos}/>
+                                <VideoList allVideos={videos} onVideoSelect={this.handleVideoSelect}/>
                             </Grid>
                         </Grid>
                     </Grid>

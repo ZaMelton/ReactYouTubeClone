@@ -1,11 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
+import VideoItem from './VideoItem';
+import {Grid} from '@material-ui/core';
 
-class VideoList extends Component{
-    render(){
-        return(
-            <h1>Pretend this is a Video List</h1>
-        )
-    }
+const VideoList = ({allVideos, onVideoSelect}) => {
+    const listOfVideos = allVideos.map((video, id) => <VideoItem onVideoSelect={onVideoSelect}  key={id} video={video}/>)
+    return (
+        <Grid container spacing={5}>
+            {listOfVideos}
+        </Grid>
+    )
 }
 
 export default VideoList;
