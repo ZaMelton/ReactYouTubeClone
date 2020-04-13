@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Grid, AppBar, Typography, Toolbar} from '@material-ui/core';
 import YouTube from './API/Youtube';
 import './App.css';
-import {SearchBar, VideoList, VideoPlayer} from './Components';
+import {SearchBar, VideoList, VideoPlayer, Comments} from './Components';
 
 class App extends Component {
     constructor(props) {
@@ -47,9 +47,10 @@ class App extends Component {
                 </AppBar>
                 <Grid justify="center" container spacing={10} style={{marginTop: '50px'}}>
                     <Grid item xs={12}>
-                        <Grid container spacing={10}>
+                        <Grid container spacing={5}>
                             <Grid item xs={8}>
                                 <VideoPlayer video={selectedVideo}/>
+                                <Comments video={selectedVideo}/>
                             </Grid>
                             <Grid item xs={4}>
                                 <VideoList allVideos={videos} onVideoSelect={this.handleVideoSelect}/>
